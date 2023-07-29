@@ -1,12 +1,106 @@
-GET /WebGoat/attack HTTP/1.1
-Host: 10.0.2.15
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Connection: close
-Referer: http://10.0.2.15/
+GET /DVWA/vulnerabilities/sqli_blind/ HTTP/1.1
+Host: 127.0.0.1
+sec-ch-ua: 
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: ""
 Upgrade-Insecure-Requests: 1
-Authorization: Basic d2ViZ29hdDp3ZWJnb2F0
-Authorization: Basic d2ViZ29hdDp3ZWdvYXQ=
-Authorization: Basic d2ViZ29hdDp3ZWJnb2F0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1/DVWA/security.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=sdoop6tab6tochvo3jvoakevsg; security=low
+Connection: close
+
+
+--------------Low---------------------------------
+GET /DVWA/vulnerabilities/sqli_blind/?id=1&Submit=Submit HTTP/1.1
+Host: localhost
+sec-ch-ua: 
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: ""
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost/DVWA/vulnerabilities/sqli_blind/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=r3u4hrhj093g2psk8744brtane; security=low
+Connection: close
+
+--------------Medium---------------------------------
+
+POST /DVWA/vulnerabilities/sqli_blind/ HTTP/1.1
+Host: localhost
+Content-Length: 18
+Cache-Control: max-age=0
+sec-ch-ua: 
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: ""
+Upgrade-Insecure-Requests: 1
+Origin: http://localhost
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost/DVWA/vulnerabilities/sqli_blind/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=r3u4hrhj093g2psk8744brtane; security=medium
+Connection: close
+
+id=1&Submit=Submit
+
+--------------HIGH---------------------------------
+
+
+GET /DVWA/vulnerabilities/sqli_blind/cookie-input.php HTTP/1.1
+Host: localhost
+sec-ch-ua: 
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: ""
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost/DVWA/vulnerabilities/sqli_blind/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=r3u4hrhj093g2psk8744brtane; security=high
+Connection: close
+
+POST /DVWA/vulnerabilities/sqli_blind/cookie-input.php HTTP/1.1
+Host: localhost
+Content-Length: 18
+Cache-Control: max-age=0
+sec-ch-ua: 
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: ""
+Upgrade-Insecure-Requests: 1
+Origin: http://localhost
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost/DVWA/vulnerabilities/sqli_blind/cookie-input.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=r3u4hrhj093g2psk8744brtane; security=high
+Connection: close

